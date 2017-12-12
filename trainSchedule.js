@@ -13,11 +13,31 @@ $(document).ready(function() {
   firebase.initializeApp(config);
 
 var database = firebase.database();
-// form initializer
-var trainName = ""
-var destination = ""
-var firstTrainTime = ""
-var frequency = ""
+
+// onclick for submit to retrive user input and push to database
+$("#user-Submit").on("click", function(event) {
+	event.preventDefault();
+// Accepts user input
+	trainName = $("#user-Train").val().trim();
+	destination = $("#user-Destination").val().trim();
+	firstTrainTime = $("#user-TrainTime").val().trim();
+	frequency = $("#user-Frequency").val().trim();
+
+//me Pushes user input to database
+database.ref().push({
+		dTrainName: trainName,
+		dDestination: destination,
+		dfirstTrainTime: firstTrainTime,
+		dfrequency: frequency,
+	
+	});
+// Empties input text after clicking
+$("#user-Train").val("")
+$("#user-Destination").val("")
+$("#user-TrainTime").val("")
+$("#user-Frequency").val("")
+
+}); // end of submit onclick
 
 
 
