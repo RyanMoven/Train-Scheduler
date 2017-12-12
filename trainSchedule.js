@@ -23,7 +23,7 @@ $("#user-Submit").on("click", function(event) {
 	firstTrainTime = $("#user-TrainTime").val().trim();
 	frequency = $("#user-Frequency").val().trim();
 
-//me Pushes user input to database
+// Pushes user input to database
 database.ref().push({
 		dTrainName: trainName,
 		dDestination: destination,
@@ -37,8 +37,23 @@ $("#user-Destination").val("")
 $("#user-TrainTime").val("")
 $("#user-Frequency").val("")
 
-}); // end of submit onclick
+}); // end of submit button onclick
 
+// Adds child data (user input) into html
+database.ref().on("child_added", function (childSnapshot) {
+		var cdSnapshot = childSnapshot.val();
+		console.log(cdSnapshot.dTrainName);
+// Taking each child value and storing it into a new variable
+		var cdTrainName = cdSnapshot.dTrainName;
+		var cdDestination = cdSnapshot.dDestination
+		var cdFirstTrainTime = cdSnapshot.dfirstTrainTime
+		var cdFrequency = cdSnapshot.dFrequency
+
+		  $("#full-Train-List > tbody").append("<tr><td>" + cdTrainName + "</td><td>" + cdDestination + "</td><td>" +
+  cdFrequency + "</td><td>" + cdFirstTrainTime + "</tr>");
+
+	
+}); 
 
 
 
